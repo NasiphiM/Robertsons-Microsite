@@ -1,0 +1,73 @@
+<ion-grid *ngIf="question == null">
+  <ion-row>
+    <ion-col>
+      <ion-icon name="warning"></ion-icon>
+      No question has been selected
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-card class="ion-text-center" *ngIf="question != null">
+  <ion-card-header>
+    <ion-card-title>Question {{ currQuestion }} :</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col
+          size-xs="12" offset-xs="0"
+          size-sm="8" offset-sm="2"
+          size-md="8" offset-md="2"
+          size-lg="4" offset-lg="4">
+          <p style="color:white; font-size: 16px;">{{ question.questionText }} </p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col
+          size-xs="12" offset-xs="0"
+          size-sm="8" offset-sm="2"
+          size-md="6" offset-md="3"
+          size-lg="4" offset-lg="4"
+          *ngFor="let option of question.answer.options; let i = index">
+          <ion-radio-group
+            [(ngModel)]="question.answer.answerText"
+            (ionChange)="onSelected(option.optionText, i)"
+            required
+            ngModel
+            [name]="'question ' + question.questionId.toString()"
+            #answer="ngModel"
+          >
+            <ion-radio [value]="option.optionText" mode="md"></ion-radio>
+            <ion-label style="width:fit-content; color: white; margin-left: 5px;"
+                       class="ion-text-wrap">{{ option.optionText }}
+            </ion-label>
+          </ion-radio-group>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="6">
+          <ion-button
+            (click)="prevQuestion()"
+            shape="round"
+            size="medium"
+            [disabled]="currQuestion === 1"><b> prev </b></ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button
+            (click)="nextQuestion()"
+            shape="round"
+            size="medium"
+            [disabled]="questions[currQuestion - 1].answer.answerText == ''"
+          >
+            <b> {{ currQuestion === questions.length ? 'submit' : 'next' }} </b>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+
+</ion-card>
+

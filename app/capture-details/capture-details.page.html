@@ -1,0 +1,127 @@
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-text-center"
+               size-xs="8" offset-xs="2"
+      >
+        <img style="margin-bottom: 5px" src="assets/top_artwork.png">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-title>
+          Welcome
+        </ion-title>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col
+        size-xs="12" offset-xs="0"
+        size-sm="8" offset-sm="2"
+        size-md="6" offset-md="3"
+        size-lg="4" offset-lg="4">
+        <form #f="ngForm" novalidate (ngSubmit)="onSubmit(f)">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-input
+                    [(ngModel)]="userDetails.fullname"
+                    name="fullname"
+                    label="Full Name: "
+                    labelPlacement="floating"
+                    required
+                    #nameInput="ngModel">
+                  </ion-input>
+                </ion-item>
+                  <ion-item *ngIf="!nameInput.valid && nameInput.touched">
+                    <ion-text color="danger">Full name is required</ion-text>
+                  </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-input
+                    [(ngModel)]="userDetails.phoneNumber"
+                    name="phoneNumber"
+                    label="Contact Number: "
+                    labelPlacement="floating"
+                    placeholder="012 345 6789 or +27 12 345 6789"
+                    pattern="^(0|\+\d{2,3}\s*)\d{2}\s*\d{3}\s*\d{4}$"
+                    required
+                    #phoneInput="ngModel">
+                  </ion-input>
+                </ion-item>
+                  <ion-item *ngIf="!phoneInput.valid && phoneInput.touched">
+                    <ion-text color="danger">Contact number is {{(phoneInput.errors != null && phoneInput.errors['required']) ? "required" : "not valid"}}</ion-text>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-input
+                      [(ngModel)]="userDetails.emailAddress"
+                      name="emailAddress"
+                      label="Email Address: "
+                      type="email"
+                      labelPlacement="floating"
+                      email
+                      required
+                      #emailInput="ngModel">
+                    </ion-input>
+                  </ion-item>
+                  <ion-item *ngIf="!emailInput.valid && emailInput.touched">
+                    <ion-text color="danger"> Email address is {{ (emailInput.errors != null && emailInput.errors['required']) ? "required" : "not valid"}}</ion-text>
+                  </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-row>
+                    I confirm that I have read the&nbsp;<a [routerLink]="['/terms-and-conditions']">Terms and Conditions </a>
+                  </ion-row>
+                </ion-item>
+              </ion-col>
+
+              <ion-col size="xs" class="checkbox-column">
+                <ion-item lines="none">
+                  <ion-checkbox
+                    [(ngModel)]="hasChecked"
+                    name="consent"
+                    #consentInput="ngModel"
+                    required
+                    mode="md"
+                    class="ion-text-wrap"
+                  ></ion-checkbox>
+                </ion-item>
+              </ion-col>
+
+              <ion-item *ngIf="!consentInput.valid && consentInput.touched">
+                <ion-text color="danger">Your consent is required to allow us to contact you with prize information
+                </ion-text>
+              </ion-item>
+            </ion-row>
+
+            <ion-row>
+              <ion-col
+                size-xs="12" offset-xs="0"
+                size-sm="8" offset-sm="2"
+                size-md="6" offset-md="3"
+                size-lg="4" offset-lg="4"
+                class="ion-text-center">
+                <ion-button  [disabled]="!hasChecked" type="submit"><b> Continue </b> </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+<!--  <img id="bottomCorner" src="assets/corner_artwork.png">-->
+</ion-content>

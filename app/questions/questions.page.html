@@ -1,0 +1,20 @@
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row class="ion-text-center">
+      <ion-col
+        size-xs="8" offset-xs="2"
+      >
+        <img src="assets/top_question_pic.png">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <app-question
+          [question]="questions[currQuestion-1]"
+        ></app-question>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+<!--  <img id="bottomCorner" src="assets/corner_artwork.png">-->
+</ion-content>
+
